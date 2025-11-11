@@ -87,6 +87,7 @@ header img {
 /* Médias telas */
 @media screen and (max-width: 1200px) {
   header {
+    height: 100px;
     padding: 0 40px;
   }
 
@@ -105,6 +106,7 @@ header img {
   /* Header mais compacto */
   .header {
     flex-direction: row;
+    top: 20px;
     justify-content: space-between;
     padding: 20px 40px;
   }
@@ -112,7 +114,7 @@ header img {
   /* Oculta o menu inicialmente */
   .header-menu {
     position: absolute;
-    top: 150px;
+    top: 100px;
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.85);

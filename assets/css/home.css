@@ -109,36 +109,95 @@
   color: var(--primary-color);
 }
 
-@media screen and (max-width: 1200px) {
+/* ====== Responsividade ====== */
+@media screen and (max-width: 1400px) {
   .home-left {
-    padding-left: 5%;
+    padding-left: 150px;
+    margin-top: 0;
   }
 
-  .home .name {
-    font-size: 40px;
-    /* line-height: .5rem; */
+  .home-left .name {
+    font-size: 48px;
+  }
+
+  .home-left .description {
+    font-size: 20px;
+  }
+
+  .home .blur-box {
+    height: 520px;
   }
 }
 
-@media screen and (max-width: 960px) {
-  .home-content {
-    flex-direction: column;
-    /* background-color: violet; */
+@media screen and (max-width: 1024px) {
+  .home-left {
+    padding-left: 80px;
   }
 
-  .home-left {
-    margin-top: 350px;
-    /* background-color: yellow; */
-    width: 90%;
-    height: 30%;
+  .home-left .name {
+    font-size: 42px;
   }
-  .home-right {
-    width: 90%;
-    height: 70%;
-    /* background-color: yellowgreen; */
+
+  .home-left .description {
+    font-size: 18px;
   }
 
   .home-right img {
+    height: 65%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .home .bg-home {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
     height: 100%;
+  }
+
+  .home .blur-box {
+    z-index: 1;
+    position: absolute;
+    top: 130px;
+    height: 70%;
+    left: 50%;
+  }
+
+  .home-left {
+    position: absolute;
+    width: 100%;
+    top: 180px;
+    height: auto;
+    padding: 0px 20px 0;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .home-left .name {
+    font-size: 26px;
+  }
+
+  .home-left .description {
+    font-size: 16px;
+    max-width: 90%;
+    line-height: 1.1rem;
+  }
+
+  .home-right {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    align-items: center; /* empurra a imagem para o fundo */
+    height: auto;
+    padding-bottom: 20px; /* espaço de respiro opcional */
+  }
+
+  .home-right img {
+    width: auto;
+    height: min(500px, 70vw); /* altura responsiva — nunca maior que 300px */
+    object-fit: contain; /* garante que não corte a imagem */
+    max-width: 100%;
   }
 }
