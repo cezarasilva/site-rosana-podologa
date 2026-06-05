@@ -1,0 +1,38 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { deleteCalendarEvent } from '@/lib/google/calendar'
+
+export async function PATCH(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Não autorizado' }, { status: 401 })
+
+  const { id } = await params
+  const db = createServiceClient()
+
+  const { data: agendamento } = await db
+    .from('agendamentos')
+    .select('google_event_id')
+    .eq('id', id)
+    .single()
+
+  const { data, error } = await db
+    .from('agendamentos')
+    .update({ status: 'CANCELADO', atualizado_em: new Date().toISOString() })
+    .eq('id', id)
+    .select('*, cliente:clientes(*), servico:servicos(*)')
+    .single()
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  if (agendamento?.google_event_id) {
+    try {
+      await deleteCalendarEvent(agendamento.google_event_id)
+    } catch {}
+  }
+
+  return NextResponse.json(data)
+}
